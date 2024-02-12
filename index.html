@@ -2,51 +2,50 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
 
-    <title>Document</title>
+  <title>Document</title>
 </head>
 
 <body>
-  
-    <div id="secondary" class="secondary">
-        <div id="pop" class="popup"></div>
-        <div id="loading-animation" class="loader">
-            <div class="bar1"></div>
-            <div class="bar2"></div>
-            <div class="bar3"></div>
-            <div class="bar4"></div>
-            <div class="bar5"></div>
-            <div class="bar6"></div>
-            <div class="bar7"></div>
-            <div class="bar8"></div>
-            <div class="bar9"></div>
-            <div class="bar10"></div>
-            <div class="bar11"></div>
-            <div class="bar12"></div>
-        </div>
+
+  <div id="secondary" class="secondary">
+    <div id="pop" class="popup"></div>
+    <div id="loading-animation" class="loader">
+      <div class="bar1"></div>
+      <div class="bar2"></div>
+      <div class="bar3"></div>
+      <div class="bar4"></div>
+      <div class="bar5"></div>
+      <div class="bar6"></div>
+      <div class="bar7"></div>
+      <div class="bar8"></div>
+      <div class="bar9"></div>
+      <div class="bar10"></div>
+      <div class="bar11"></div>
+      <div class="bar12"></div>
     </div>
-    <div class="main">
-        <div class="head">
-            <p>Find Movies</p>
-            <input placeholder="Movie Name" id="search" type="text" />
-        </div>
+  </div>
+  <div class="main">
+    <div class="head">
+      <p>Find Movies</p>
+      <input placeholder="Movie Name" id="search" type="text" />
+    </div>
 
-        <div class="box">
-            <button id="home"> Home
-            </button>
-            <p id="sug">Movies You Might Like</p>
-            <div id="container">
-            </div>
-
-        </div>
+    <div class="box">
+      <button id="home"> Home
+      </button>
+      <p id="sug">Movies You Might Like</p>
+      <div id="container">
+      </div>
 
     </div>
+
+  </div>
 </body>
 <script id="products-template" type="text/x-handlebars-template">
     {{#if data}}
@@ -98,6 +97,7 @@
       </div>
     {{/data}}
   </script>
+<script src="jquery.js"></script>
 
 <script src="app.js"></script>
 

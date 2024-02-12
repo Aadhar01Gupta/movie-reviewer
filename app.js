@@ -1,9 +1,6 @@
 const apiKey = "https://www.omdbapi.com/?&apikey=31103aae&i=";
 const searchKey = "https://www.omdbapi.com/?&apikey=31103aae&s=";
 
-
-
-
 function home() {
   let Home_page_id = [
     "tt3896198",
@@ -23,38 +20,61 @@ home();
 };
 
 async function getapi(key) {
-  debugger;
-  var i;
-  var dataKey = [];
-  for (i = 0; i < key.length; i++) {
-    const articleType = await fetch(`${apiKey}${key[i]}`);
-    var abc = await articleType.json();
-    dataKey.push(abc);
-  }
-  console.log(dataKey);
-  const productstemp = document.getElementById("products-template").innerHTML;
-  const productscompile = Handlebars.compile(productstemp);
-  const compileddata = productscompile({ data: dataKey });
-  const container = document.getElementById("container");
-  container.innerHTML = compileddata;
-  $(".card").on("click", function abc(e) {
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
+  const homeData = JSON.parse(localStorage.getItem('homeData'))
+  if(homeData === null){
+    var i;
+    var dataKey = [];
+    for (i = 0; i < key.length; i++) {
+      const articleType = await fetch(`${apiKey}${key[i]}`);
+      var abc = await articleType.json();
+      dataKey.push(abc);
+    }
+    console.log(dataKey);
+    const productstemp = document.getElementById("products-template").innerHTML;
+    const productscompile = Handlebars.compile(productstemp);
+    const compileddata = productscompile({ data: dataKey });
+    const container = document.getElementById("container");
+    container.innerHTML = compileddata;
+    $(".card").on("click", function abc(e) {
+  
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+      const sec = document.getElementById("secondary");
+      sec.setAttribute("style", "display:grid");
+      const load = document.getElementById("loading-animation");
+      load.setAttribute("style", "display:block");
+      $("body").toggleClass("stop-scrolling");
+      popup(e.currentTarget.id);
     });
-    const sec = document.getElementById("secondary");
-    sec.setAttribute("style", "display:grid");
-    const load = document.getElementById("loading-animation");
-    load.setAttribute("style", "display:block");
-    $("body").toggleClass("stop-scrolling");
-    popup(e.currentTarget.id);
-  });
+  localStorage.setItem('homeData',JSON.stringify(dataKey));
+  }
+  else{
+    const productstemp = document.getElementById("products-template").innerHTML;
+    const productscompile = Handlebars.compile(productstemp);
+    const compileddata = productscompile({ data: homeData});
+    const container = document.getElementById("container");
+    container.innerHTML = compileddata;
+    $(".card").on("click", function abc(e) {
+  
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+      const sec = document.getElementById("secondary");
+      sec.setAttribute("style", "display:grid");
+      const load = document.getElementById("loading-animation");
+      load.setAttribute("style", "display:block");
+      $("body").toggleClass("stop-scrolling");
+      popup(e.currentTarget.id);
+    });
+  }
+
 }
 
 function popup(data) {
   setTimeout(async function () {
-    debugger;
     const articleType = await fetch(`${apiKey}${data}`);
     var abc = await articleType.json();
     const load = document.getElementById("loading-animation");
@@ -70,7 +90,6 @@ function popup(data) {
     popup.setAttribute("style", "display:flex");
 
     $("#close").on("click", function () {
-      debugger;
       const target = document.getElementById("lol");
       target.setAttribute("src", "#");
       const popup = document.getElementById("pop");
@@ -81,11 +100,21 @@ function popup(data) {
     });
   }, 300);
 }
+function debounce(func, delay) {
+  let timeoutId;
+  return function(...args) {
+    const context = this;
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      func.apply(context, args);
+    }, delay);
+  };
+}
 
-$("#search").on("keydown", function (e) {
-  setTimeout(function () {
-    searchFnc(e.currentTarget.value);
-  }, 500);
+const debouncedSearch = debounce(searchFnc, 1000);
+
+$("#search").on("input", function (e) {
+    debouncedSearch(e.currentTarget.value);
 });
 
 async function searchFnc(data) {
@@ -105,7 +134,6 @@ async function searchFnc(data) {
   const sug = document.getElementById("sug");
   sug.innerText = "Search Results";
   $(".card").on("click", function abc(e) {
-    debugger;
     window.scrollTo({
       top: 0,
       left: 100,
@@ -123,12 +151,13 @@ async function searchFnc(data) {
 }
 
 $("#home").on("click", function () {
-  debugger;
   home();
   document.getElementById("search").value = "";
 });
 
 Handlebars.registerHelper("splitStringToArray", function (string) {
-  debugger;
   return string.split(",");
 });
+
+
+
