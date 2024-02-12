@@ -67,9 +67,13 @@
     {{#if data}}
     {{#data}}
       <div id="{{imdbID}}" class="card">
-        <img class="image" src="{{{Poster}}}" loading="lazy"alt="Article Image"  />
-        <h4>{{Title}}</h4>
-        <p>{{Year}}</p>
+        <div class="card-img">
+          <img class="image" src="{{{Poster}}}" loading="lazy"alt="Article Image"  />
+        </div>
+        <div class="card-textContent">
+          <h4>{{Title}}</h4>
+          <p>{{Year}}</p>
+        </div>
       </div>
     {{/data}}
   {{else}}
