@@ -34,6 +34,21 @@
     <div class="head">
       <p>Find Movies</p>
       <input placeholder="Movie Name" id="search" type="text" />
+      <div class="wrapper">
+        <div class="option">
+          <input class="input" type="radio" name="btn" value="Series" checked="">
+          <div class="btn">
+            <span class="span">Series</span>
+          </div>
+        </div>
+        <div class="option">
+          <input class="input" type="radio" name="btn" value="Movie">
+          <div class="btn">
+            <span class="span">Movie</span>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <div class="box">
@@ -51,12 +66,7 @@
     {{#if data}}
     {{#data}}
       <div id="{{imdbID}}" class="card">
-        <img
-          class="image"
-          src="{{{Poster}}}"
-          loading="lazy"
-          alt="Article Image"
-        />
+        <img class="image" src="{{{Poster}}}" loading="lazy"alt="Article Image"  />
         <h4>{{Title}}</h4>
         <p>{{Year}}</p>
       </div>

@@ -22,10 +22,8 @@ window.onload = function () {
 async function getapi(key) {
   const homeData = JSON.parse(localStorage.getItem('homeData'))
   if (homeData === null) {
-    var i;
     var dataKey = [];
-
-    const articleType = await fetch('https://www.omdbapi.com/?&apikey=31103aae&s=marvel&type=movie');
+    const articleType = await fetch('https://www.omdbapi.com/?&apikey=31103aae&s=marvel&type=series');
     var abc = await articleType.json();
     debugger
     console.log(abc);
@@ -121,9 +119,17 @@ $("#search").on("input", function (e) {
   debouncedSearch(e.currentTarget.value);
 });
 
+$("#search").on("keydown", function (e) {
+  if(e.key === 'Enter'){
+    searchFnc(e.currentTarget.value);
+  }
+});
+
+
 async function searchFnc(data) {
   debugger;
-  const articleType = await fetch(`${searchKey}${data}`);
+  const input = $('.input[name="btn"]:checked').val();
+  const articleType = await fetch(`${searchKey}${data}&type=${input}`);
   var abc = await articleType.json();
   if (abc.Response === "False" || abc.Search.length < 2) {
     SearchRes = null;
