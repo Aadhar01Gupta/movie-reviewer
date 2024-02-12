@@ -16,27 +16,31 @@ function home() {
 }
 
 window.onload = function () {
-home();
+  home();
 };
 
 async function getapi(key) {
   const homeData = JSON.parse(localStorage.getItem('homeData'))
-  if(homeData === null){
+  if (homeData === null) {
     var i;
     var dataKey = [];
-    for (i = 0; i < key.length; i++) {
-      const articleType = await fetch(`${apiKey}${key[i]}`);
-      var abc = await articleType.json();
-      dataKey.push(abc);
-    }
-    console.log(dataKey);
+
+    const articleType = await fetch('https://www.omdbapi.com/?&apikey=31103aae&s=marvel&type=movie');
+    var abc = await articleType.json();
+    debugger
+    console.log(abc);
+
+    dataKey.push(abc.Search);
+    const newData =   dataKey.flat(1)
+
+    console.log(newData);
     const productstemp = document.getElementById("products-template").innerHTML;
     const productscompile = Handlebars.compile(productstemp);
-    const compileddata = productscompile({ data: dataKey });
+    const compileddata = productscompile({ data: newData });
     const container = document.getElementById("container");
     container.innerHTML = compileddata;
     $(".card").on("click", function abc(e) {
-  
+
       window.scrollTo({
         top: 0,
         behavior: "smooth",
@@ -48,16 +52,16 @@ async function getapi(key) {
       $("body").toggleClass("stop-scrolling");
       popup(e.currentTarget.id);
     });
-  localStorage.setItem('homeData',JSON.stringify(dataKey));
+    localStorage.setItem('homeData', JSON.stringify(newData));
   }
-  else{
+  else {
     const productstemp = document.getElementById("products-template").innerHTML;
     const productscompile = Handlebars.compile(productstemp);
-    const compileddata = productscompile({ data: homeData});
+    const compileddata = productscompile({ data: homeData });
     const container = document.getElementById("container");
     container.innerHTML = compileddata;
     $(".card").on("click", function abc(e) {
-  
+
       window.scrollTo({
         top: 0,
         behavior: "smooth",
@@ -102,7 +106,7 @@ function popup(data) {
 }
 function debounce(func, delay) {
   let timeoutId;
-  return function(...args) {
+  return function (...args) {
     const context = this;
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => {
@@ -114,7 +118,7 @@ function debounce(func, delay) {
 const debouncedSearch = debounce(searchFnc, 1000);
 
 $("#search").on("input", function (e) {
-    debouncedSearch(e.currentTarget.value);
+  debouncedSearch(e.currentTarget.value);
 });
 
 async function searchFnc(data) {
