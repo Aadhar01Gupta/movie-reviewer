@@ -144,7 +144,7 @@ async function searchFnc(data) {
 }
 
 $("#home").on("click", () => {
-  home();
+  getapi()
   document.getElementById("search").value = "";
 });
 
