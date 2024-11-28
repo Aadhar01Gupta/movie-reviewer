@@ -1,22 +1,23 @@
 const apiKey = "https://www.omdbapi.com/?&apikey=31103aae&i=";
 const searchKey = "https://www.omdbapi.com/?&apikey=31103aae&s=";
 
-
 window.onload = () => {
   getapi();
 };
 
 async function getapi() {
-  const homeData = JSON.parse(sessionStorage.getItem('homeData'));
+  const homeData = JSON.parse(sessionStorage.getItem("homeData"));
   if (homeData === null) {
     var dataKey = [];
-    const articleType = await fetch('https://www.omdbapi.com/?&apikey=31103aae&s=marvel&type=series');
+    const articleType = await fetch(
+      "https://www.omdbapi.com/?&apikey=31103aae&s=hollywood&type=series"
+    );
     var abc = await articleType.json();
     console.log(abc);
     dataKey.push(abc.Search);
     const newData = dataKey.flat(1);
     console.log(newData);
-    const productstemp = document.getElementById("products-template").innerHTML;
+    const productstemp = document.getElementById("movie-card").innerHTML;
     const productscompile = Handlebars.compile(productstemp);
     const compileddata = productscompile({ data: newData });
     const container = document.getElementById("container");
@@ -33,9 +34,9 @@ async function getapi() {
       $("body").addClass("stop-scrolling");
       popup(e.currentTarget.id);
     });
-    sessionStorage.setItem('homeData', JSON.stringify(newData));
+    sessionStorage.setItem("homeData", JSON.stringify(newData));
   } else {
-    const productstemp = document.getElementById("products-template").innerHTML;
+    const productstemp = document.getElementById("movie-card").innerHTML;
     const productscompile = Handlebars.compile(productstemp);
     const compileddata = productscompile({ data: homeData });
     const container = document.getElementById("container");
@@ -57,12 +58,12 @@ async function getapi() {
 
 function popup(data) {
   setTimeout(async () => {
-    const articleType = await fetch(`${apiKey}${data}`);
+    const articleType = await fetch(`${apiKey}${data}&plot=full`);
     var abc = await articleType.json();
     const load = document.getElementById("loading-animation");
     load.setAttribute("style", "display:none");
     console.log(abc);
-    const productstemp = document.getElementById("products-template2").innerHTML;
+    const productstemp = document.getElementById("popup-template").innerHTML;
     const productscompile = Handlebars.compile(productstemp);
     const compileddata = productscompile({ data: abc });
     const container = document.getElementById("pop");
@@ -104,22 +105,21 @@ $("#search").on("input", (e) => {
 });
 
 $("#search").on("keydown", (e) => {
-  if (e.key === 'Enter') {
+  if (e.key === "Enter") {
     searchFnc(e.currentTarget.value);
   }
 });
 
 async function searchFnc(data) {
-  debugger;
-  const input = $('.input[name="btn"]:checked').val();
-  const articleType = await fetch(`${searchKey}${data}&type=${input}`);
+  const searchType = $('.input[name="btn"]:checked').val();
+  const articleType = await fetch(`${searchKey}${data}&type=${searchType}`);
   var abc = await articleType.json();
   if (abc.Response === "False" || abc.Search.length < 2) {
     SearchRes = null;
   } else {
     var SearchRes = abc.Search;
   }
-  const productstemp = document.getElementById("products-template").innerHTML;
+  const productstemp = document.getElementById("movie-card").innerHTML;
   const productscompile = Handlebars.compile(productstemp);
   const compileddata = productscompile({ data: SearchRes });
   const container = document.getElementById("container");
@@ -144,7 +144,7 @@ async function searchFnc(data) {
 }
 
 $("#home").on("click", () => {
-  getapi()
+  getapi();
   document.getElementById("search").value = "";
 });
 

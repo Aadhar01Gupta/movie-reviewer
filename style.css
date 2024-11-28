@@ -1,12 +1,23 @@
 * {
   padding: 0%;
   margin: 0%;
-  font-family: 'Poppins', sans-serif;
-
+  font-family: "Poppins", sans-serif;
 }
 
 .box {
   position: relative;
+}
+
+.main {
+  min-height: 100vh;
+  background-image: linear-gradient(120deg, #a6c0fe 0%, #f68084 100%);
+}
+
+#noResults {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 #container {
@@ -20,7 +31,25 @@
 .head {
   font-size: 30px;
   height: 20vh;
-  background-color: black;
+  --s: 200px; /* control the size */
+  --c1: #1d1d1d;
+  --c2: #4e4f51;
+  --c3: #3c3c3c;
+
+  background: repeating-conic-gradient(
+        from 30deg,
+        #0000 0 120deg,
+        var(--c3) 0 180deg
+      )
+      calc(0.5 * var(--s)) calc(0.5 * var(--s) * 0.577),
+    repeating-conic-gradient(
+      from 30deg,
+      var(--c1) 0 60deg,
+      var(--c2) 0 120deg,
+      var(--c3) 0 180deg
+    );
+  background-size: var(--s) calc(var(--s) * 0.577);
+
   color: white;
   display: flex;
   align-items: center;
@@ -33,29 +62,31 @@ input {
   margin-right: 5%;
 }
 
-#sug {
-  margin-left: 10%;
+.plot {
+  max-height: 125px;
+  overflow: hidden;
 }
 
+#sug {
+  margin-left: 10%;
+  margin-bottom: 3%;
+}
 .image {
   overflow: hidden;
   object-fit: contain;
   aspect-ratio: 10/16;
   cursor: pointer;
-  margin-bottom: 5px;
-  
   -webkit-box-shadow: 0px 0px 29px 5px rgba(97, 97, 97, 0.751);
-  -moz-box-shadow:  0px 0px 29px 5px rgba(97, 97, 97, 0.751);
-  box-shadow:0px 0px 29px 5px rgba(97, 97, 97, 0.751);
+  -moz-box-shadow: 0px 0px 29px 5px rgba(97, 97, 97, 0.751);
+  box-shadow: 0px 0px 29px 5px rgba(97, 97, 97, 0.751);
 }
 .card {
   position: relative;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-
+  justify-items: center;
 }
-
 .card-textContent h4,
 .card-textContent p {
   transform: translateY(80px);
@@ -73,13 +104,13 @@ input {
   align-items: center;
 }
 
-.card:has(.image:hover) .card-textContent h4,.card:has(.image:hover) 
-.card-textContent p {
+.card:has(.image:hover) .card-textContent h4,
+.card:has(.image:hover) .card-textContent p {
   transform: translateY(0px);
   transition: all 0.2s ease-in-out;
 }
 
-.card:has(.image:hover) .card-textContent{
+.card:has(.image:hover) .card-textContent {
   background-color: rgba(0, 0, 0, 0.514);
   padding: 5px;
   width: 107%;
@@ -87,20 +118,17 @@ input {
   transition: background-color 0.2s ease-in-out;
 }
 
-
-
-.card h4{
+.card h4 {
   text-align: center;
 }
 
 .image:hover {
   scale: 1.1;
   transition: scale 0.2s cubic-bezier(1, -0.03, 0.16, 1.47);
-  -webkit-box-shadow:   0px 0px 29px 5px rgb(114, 0, 180);
-  -moz-box-shadow:  0px 0px 29px 5px rgb(114, 0, 180);
+  -webkit-box-shadow: 0px 0px 29px 5px rgb(114, 0, 180);
+  -moz-box-shadow: 0px 0px 29px 5px rgb(114, 0, 180);
   box-shadow: 0px 0px 29px 5px rgb(114, 0, 180);
   transition: box-shadow 0.2s ease-in-out;
-
 }
 
 #search {
@@ -113,7 +141,7 @@ input {
   position: abslute;
   width: 1500px;
   height: 500px;
-  background-color: rgb(238, 238, 238);
+  background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);
 }
 
 body {
@@ -160,46 +188,40 @@ body {
   justify-items: flex-start;
 }
 
-
-button {
-  margin: 10px;
-  --green: #1b97fd;
-  font-size: 15px;
-  padding: 0.7em 2.7em;
-  letter-spacing: 0.06em;
-  position: relative;
-  font-family: inherit;
-  border-radius: 0.6em;
-  overflow: hidden;
-  transition: all 0.3s;
-  line-height: 1.4em;
-  border: 2px solid var(--green);
-  background: linear-gradient(to right, rgba(27, 253, 156, 0.1) 1%, transparent 40%, transparent 60%, rgba(27, 253, 156, 0.1) 100%);
-  color: var(--green);
-  box-shadow: inset 0 0 10px rgba(27, 215, 253, 0.4), 0 0 9px 3px rgba(27, 253, 156, 0.1);
+.button {
+  margin-top: 2%;
+  margin-bottom: 2%;
   margin-left: 10%;
+  background-color: #ffffff00;
+  color: #fff;
+  width: 8.5em;
+  height: 2.9em;
+  border: #3654ff 0.2em solid;
+  border-radius: 11px;
+  text-align: right;
+  transition: all 0.6s ease;
 }
 
-button:hover {
-  color: #0d55d0;
-  box-shadow: inset 0 0 10px rgba(27, 91, 253, 0.6), 0 0 9px 3px rgba(27, 253, 156, 0.2);
+.button:hover {
+  background-color: #3654ff;
+  cursor: pointer;
 }
 
-button:before {
-  content: "";
+.button svg {
+  width: 1.6em;
+  margin: -0.2em 0.8em 1em;
   position: absolute;
-  left: -4em;
-  width: 4em;
-  height: 100%;
-  top: 0;
-  transition: transform .4s ease-in-out;
-  background: linear-gradient(to right, transparent 1%, rgba(27, 253, 156, 0.1) 40%, rgba(27, 253, 156, 0.1) 60%, transparent 100%);
+  display: flex;
+  transition: all 0.6s ease;
 }
 
-button:hover:before {
-  transform: translateX(15em);
+.button:hover svg {
+  transform: translateX(5px);
 }
 
+.text {
+  margin: 0 1.5em;
+}
 
 .stop-scrolling {
   height: 100%;
@@ -211,7 +233,6 @@ button:hover:before {
   align-items: center;
   margin-left: 50px;
 }
-
 
 .loader {
   display: none;
@@ -329,10 +350,9 @@ button:hover:before {
   width: 50%;
 }
 
-
 .head .wrapper {
   --font-color-dark: #323232;
-  --font-color-light: #FFF;
+  --font-color-light: #fff;
   --bg-color: #fff;
   --main-color: #323232;
   position: relative;
@@ -381,19 +401,18 @@ button:hover:before {
   color: var(--font-color-dark);
 }
 
-.head .input:checked+.btn {
+.head .input:checked + .btn {
   background-color: var(--main-color);
 }
 
-.head .input:checked+.btn .span {
+.head .input:checked + .btn .span {
   color: var(--font-color-light);
 }
-
 
 @media (max-width: 575.98px) {
   .head .wrapper {
     --font-color-dark: #323232;
-    --font-color-light: #FFF;
+    --font-color-light: #fff;
     --bg-color: #fff;
     --main-color: #323232;
     position: relative;
@@ -453,5 +472,163 @@ button:hover:before {
     justify-content: center;
     align-items: center;
   }
+}
 
+button {
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.background {
+  border-radius: 16px;
+  mix-blend-mode: luminosity;
+  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(15px);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.menu__icon {
+  width: 32px;
+  height: 32px;
+  padding: 4px;
+}
+
+.menu__icon span {
+  display: block;
+  width: 100%;
+  height: 0.125rem;
+  border-radius: 2px;
+  background-color: rgb(0, 122, 255);
+  box-shadow: 0 0.5px 2px 0 hsla(0, 0%, 0%, 0.2);
+  transition: background-color 0.4s;
+  position: relative;
+}
+
+.menu__icon span + span {
+  margin-top: 0.375rem;
+}
+
+.menu__icon span:nth-child(1) {
+  animation: ease 0.8s menu-icon-top-2 forwards;
+}
+
+.menu__icon span:nth-child(2) {
+  animation: ease 0.8s menu-icon-scaled-2 forwards;
+}
+
+.menu__icon span:nth-child(3) {
+  animation: ease 0.8s menu-icon-bottom-2 forwards;
+}
+
+.menu__icon:hover span:nth-child(1) {
+  animation: ease 0.8s menu-icon-top forwards;
+}
+
+.menu__icon:hover span:nth-child(2) {
+  animation: ease 0.8s menu-icon-scaled forwards;
+}
+
+.menu__icon:hover span:nth-child(3) {
+  animation: ease 0.8s menu-icon-bottom forwards;
+  background-color: rgb(255, 59, 48);
+}
+
+@keyframes menu-icon-top {
+  0% {
+    top: 0;
+    transform: rotate(0);
+  }
+
+  50% {
+    top: 0.5rem;
+    transform: rotate(0);
+  }
+
+  100% {
+    top: 0.5rem;
+    transform: rotate(45deg);
+  }
+}
+
+@keyframes menu-icon-top-2 {
+  0% {
+    top: 0.5rem;
+    transform: rotate(45deg);
+  }
+
+  50% {
+    top: 0.5rem;
+    transform: rotate(0);
+  }
+
+  100% {
+    top: 0;
+    transform: rotate(0);
+  }
+}
+
+@keyframes menu-icon-bottom {
+  0% {
+    bottom: 0;
+    transform: rotate(0);
+  }
+
+  50% {
+    bottom: 0.5rem;
+    transform: rotate(0);
+  }
+
+  100% {
+    bottom: 0.5rem;
+    transform: rotate(135deg);
+  }
+}
+
+@keyframes menu-icon-bottom-2 {
+  0% {
+    bottom: 0.5rem;
+    transform: rotate(135deg);
+  }
+
+  50% {
+    bottom: 0.5rem;
+    transform: rotate(0);
+  }
+
+  100% {
+    bottom: 0;
+    transform: rotate(0);
+  }
+}
+
+@keyframes menu-icon-scaled {
+  50% {
+    transform: scale(0);
+  }
+
+  100% {
+    transform: scale(0);
+  }
+}
+
+@keyframes menu-icon-scaled-2 {
+  0% {
+    transform: scale(0);
+  }
+
+  50% {
+    transform: scale(0);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
